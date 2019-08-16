@@ -75,21 +75,6 @@ def readRaintxt(filename, useColList, col_dtypes):
     df.index = pd.to_datetime(df.index)
     return(df)
 
-# single rain gauge
-def readRaincsv(filename):
-    df = pd.read_csv(filename,
-        index_col = 0,
-        header = 2,
-        usecols = [0, 1],
-        names = ['DateTime', 'Rain (in)'],
-        parse_dates = True,
-        infer_datetime_format = True,
-        dtype = {
-            'Rain (in)' : np.float64
-        })
-    df.index = pd.to_datetime(df.index)
-    return(df)
-
 def readFMdetails(filename):
     #column names: 'Rain Gage', 'Diameter', 'Linear Feet', 'Basin Area (Ac)', 'Basin Footprint (in-mi)', 'Total Footage (LF)'
     df = pd.read_csv(filename,

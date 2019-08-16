@@ -322,43 +322,7 @@ def df_rainComp(stormDict, fmname, col, ylabel,
         plt.close(fig)
     return(fitData)
 
-def plotInstantUpstreamFlows(fmname, dfFlows, usfmList, saveDir = []):
-    down_data = dfFlows[fmname]['Q (MGD)']
-    df_down = pd.DataFrame(
-        data = {fmname: down_data},
-        index = down_data.index
-    )
-    data = {}
-    colors = sns.color_palette('Set2',
-                               len(usfmList))[::-1]
-    for usfm in usfmList:
-        data[usfm] = dfFlows[usfm]['Q (MGD)']
-    df_up = pd.DataFrame(
-        data = data, 
-        index = down_data.index)
-    fig, ax = plt.subplots(figsize = (7.5,3))
-    df_up.plot.area(ax = ax,
-             stacked = True,
-             color = colors)
-    ax.set_ylabel('Q (MGD)')
-    topLim = max(sum(df_up.max()),float(df_down.max()))
-    ax.set_ylim(top = 1.2 * topLim)
-    df_down.plot(kind = 'line',
-              color = 'xkcd:charcoal',
-              linestyle = '-',
-                 linewidth = 1.0,
-                ax = ax)
-    ax.set_xlabel('Date')
-    ax.legend(loc = 'lower right')
-    plt.tight_layout()
-    if not saveDir:
-        plt.show()
-    else:
-        saveName = saveDir + fmname + '_wUpstream.png'
-        plt.savefig(saveName)
-        plt.close(fig)
-
-def plotMeanUpstreamFlows(fmname, basinDryWeather, usfmList, saveDir = []):
+def plotUpstreamFlows(fmname, basinDryWeather, usfmList, saveDir = []):
     fmMean = basinDryWeather[fmname]['Weekday']['DataFrame'].mean(axis = 1)
     df_down = pd.DataFrame(
         data = {fmname: fmMean},
@@ -388,7 +352,7 @@ def plotMeanUpstreamFlows(fmname, basinDryWeather, usfmList, saveDir = []):
     if not saveDir:
         plt.show()
     else:
-        saveName = saveDir + fmname + '_wUpstream.png'
+        saveName = saveDir + '\\' + fmname + '\\' + fmname + '_wUpstream.png'
         plt.savefig(saveName)
         plt.close(fig)
 

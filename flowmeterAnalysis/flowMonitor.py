@@ -143,12 +143,12 @@ OUTPUTS:
         * Overall: a dictionary containing the following keys: 
             * BI: a float of the base infiltration, defined as the groundwater infiltration as a percentage of the overall mean flow rate
             * d/D: a numpy array containing the depth over diameter values'''
-def dryWeather(dfFlow, fmname, dfDailyRain, rainColName,
+def dryWeather(dfFlow, fmname, dfDailyRain, 
                dfmDetails, analysisDates,rainThresh):
     # find the rain gage for this flow monitor
-    # gagename = dfmDetails.loc[fmname, 'Rain Gage']
+    gagename = dfmDetails.loc[fmname, 'Rain Gage']
     # find the rain totals of this rain gage
-    dfRain = dfDailyRain[rainColName]
+    dfRain = dfDailyRain[gagename]
     #find dates on which the rain threshold was exceeded
     bufferBefore = 2 # days
     bufferAfter = 3 # days
